@@ -3,7 +3,7 @@ import './App.css';
 import React, { Suspense, useMemo, useState } from 'react';
 import { Canvas, useLoader } from '@react-three/fiber';
 import { Environment, OrbitControls,Stars, useTexture } from '@react-three/drei';
-import { Physics, useBox, usePlane } from '@react-three/cannon';
+import { Physics, useBox, useConvexPolyhedron, useCylinder, useHeightfield, usePlane, useTrimesh } from '@react-three/cannon';
 import * as THREE from "three";
 import {Mesh} from 'three'
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
@@ -84,6 +84,14 @@ function ObjToPrimitive({ url, mat }) {
 }
 
 const Asset = () => {
+  const [ref, api] = useBox(()=>({
+    mass:1,
+    position: [0,5,0],
+    rotation:[-pi/3,-pi/3,0]
+  }));
+
+  
+
   const mat = new THREE.MeshPhysicalMaterial({
     map: new THREE.TextureLoader().load("astronaut002/z2_spacesuit/suit_baseColor.png"),
     metalnessMap:new THREE.TextureLoader().load("astronaut002/z2_spacesuit/suit_metallic.png"),
@@ -91,7 +99,13 @@ const Asset = () => {
     normalMap:new THREE.TextureLoader().load("astronaut002/z2_spacesuit/suit_normal.png")
   })
   return (
-    <mesh scale={.01} position={[0, 0, 0]} >
+
+
+    <mesh scale={.01} position={[0, 0, 0]} ref={ref} onClick={()=>{
+      api.velocity.set(0,10,0);
+      api.applyTorque([15,0,0])
+    }} 
+  >
       {ObjToPrimitive({ url: "astronaut002/z2_spacesuit.obj", mat })}
     </mesh>
   );
@@ -99,8 +113,22 @@ const Asset = () => {
 
 
 function Asset2() {
+  const [ref, api] = useBox(()=>({
+    mass:1,
+    position: [0,10,0],
+    rotation:[-pi/3,-pi/3,0]
+  }));
+
+  
   const fbx = useLoader(FBXLoader, '/Sci-fi Rifle 2.fbx')
-  return <primitive scale={.01} object={fbx} />
+  return (
+  <mesh ref={ref} onClick={()=>{
+    api.velocity.set(0,10,0);
+    api.applyTorque([15,0,0])
+  }} >
+    <primitive scale={.01} object={fbx} />
+    </mesh>)
+    
 }
 
 
@@ -259,9 +287,9 @@ function App() {
         <ambientLight intensity={0.2}/>
         <spotLight position={[2,8,5]} angle={0.3} color="white" intensity={1}/>
         <spotLight position={[-6,8,5]} angle={0.3} color="white"/>
+        <Physics>
         <Asset/>
         <Asset2/>
-        <Physics>
         <Box/>
         <Box1/>
         <Box2/>
