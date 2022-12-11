@@ -1,0 +1,47 @@
+newmtl suit_Mat
+Ni 1.6
+Ka 0 0 0
+d 1.0
+Ke 0.0
+Kd 0 0 0
+adobe_map_normal z2_spacesuit/suit_normal.png
+Tr 0
+illum 7
+Ks 1 1 1
+adobe_translucence 0.0
+adobe_map_roughness z2_spacesuit/suit_roughness.png
+adobe_interior_color 1.0 1.0 1.0
+adobe_density 1.0
+map_Pm z2_spacesuit/suit_metallic.png
+Ns 16
+map_Kd z2_spacesuit/suit_baseColor.png
+newmtl shield_Mat
+Pr 0.0),
+Ni 1.6
+Ka 0 0 0
+Pm 1
+d 1.0
+Ke 0.0
+Kd 0.896 0.464 0.024
+Tr 0
+illum 7
+Ks 1 1 1
+adobe_interior_color 1.0 1.0 1.0
+adobe_density 0.0
+Ns 16
+adobe_translucence 0.0
+newmtl visor_Mat
+Pr 0.1),
+Ni 2.0
+Ka 0 0 0
+Pm 0
+d 1.0
+Ke 0.0
+Kd 0.0 0.0 0.0
+Tr 0
+illum 7
+Ks 1 1 1
+adobe_interior_color 1.0 1.0 1.0
+adobe_density 0.0
+Ns 16
+adobe_translucence 1.0
