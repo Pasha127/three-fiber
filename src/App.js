@@ -120,7 +120,7 @@ function Asset2() {
   }));
 
   
-  const fbx = useLoader(FBXLoader, '/Sci-fi Rifle 2.fbx')
+  const fbx = useLoader(FBXLoader, 'https://res.cloudinary.com/dirwjcohx/raw/upload/v1670880728/3DepotProducts/Sci-fi_Rifle_2_qu1tv8.fbx')
   return (
   <mesh ref={ref} onClick={()=>{
     api.velocity.set(0,10,0);
@@ -130,6 +130,26 @@ function Asset2() {
     </mesh>)
     
 }
+
+function Asset3() {
+  const [ref, api] = useBox(()=>({
+    mass:1,
+    position: [0,10,0],
+    rotation:[-pi/3,-pi/3,0]
+  }));
+
+  
+  const fbx = useLoader(FBXLoader, 'https://res.cloudinary.com/dirwjcohx/raw/upload/v1670880728/3DepotProducts/Sci-fi_Rifle_2_qu1tv8.fbx')
+  return (
+  <mesh ref={ref} onClick={()=>{
+    api.velocity.set(0,10,0);
+    api.applyTorque([15,0,0])
+  }} >
+    <primitive scale={.01} object={fbx} />
+    </mesh>)
+    
+}
+
 
 
 function Box() {
@@ -290,6 +310,7 @@ function App() {
         <Physics>
         <Asset/>
         <Asset2/>
+        <Asset3/>
         <Box/>
         <Box1/>
         <Box2/>
