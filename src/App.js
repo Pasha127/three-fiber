@@ -11,6 +11,9 @@ import { MTLLoader } from "three/examples/jsm/loaders/MTLLoader";
 import { DDSLoader } from "three-stdlib";
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader'
 
+
+
+
 const pi= Math.PI;
 
 
@@ -93,10 +96,14 @@ const Asset = () => {
   
 
   const mat = new THREE.MeshPhysicalMaterial({
-    map: new THREE.TextureLoader().load("astronaut002/z2_spacesuit/suit_baseColor.png"),
-    metalnessMap:new THREE.TextureLoader().load("astronaut002/z2_spacesuit/suit_metallic.png"),
-    roughnessMap:new THREE.TextureLoader().load("astronaut002/z2_spacesuit/suit_roughness.png"),
-    normalMap:new THREE.TextureLoader().load("astronaut002/z2_spacesuit/suit_normal.png")
+    map: new THREE.TextureLoader().load("url"),                   //--color--
+    metalnessMap:new THREE.TextureLoader().load("url"),           //--metalness--
+    roughnessMap:new THREE.TextureLoader().load("url"),           //--roughness--
+    normalMap:new THREE.TextureLoader().load("url"),              //--normals--
+    transmissionMap : new THREE.TextureLoader().load("url"),      //--opacity--
+    aoMap : new THREE.TextureLoader().load("url"),                //--ambient occlusion--
+    emissiveMap : new THREE.TextureLoader().load("url"),          //--emission--
+    clearcoatMap : new THREE.TextureLoader().load("url")          //--clearcoat--
   })
   return (
 
@@ -119,7 +126,7 @@ function Asset2() {
     rotation:[-pi/3,-pi/3,0]
   }));
 
-  
+
   const fbx = useLoader(FBXLoader, 'https://res.cloudinary.com/dirwjcohx/raw/upload/v1670880728/3DepotProducts/Sci-fi_Rifle_2_qu1tv8.fbx')
   return (
   <mesh ref={ref} onClick={()=>{
@@ -131,24 +138,6 @@ function Asset2() {
     
 }
 
-function Asset3() {
-  const [ref, api] = useBox(()=>({
-    mass:1,
-    position: [0,10,0],
-    rotation:[-pi/3,-pi/3,0]
-  }));
-
-  
-  const fbx = useLoader(FBXLoader, 'https://res.cloudinary.com/dirwjcohx/raw/upload/v1670880728/3DepotProducts/Sci-fi_Rifle_2_qu1tv8.fbx')
-  return (
-  <mesh ref={ref} onClick={()=>{
-    api.velocity.set(0,10,0);
-    api.applyTorque([15,0,0])
-  }} >
-    <primitive scale={.01} object={fbx} />
-    </mesh>)
-    
-}
 
 
 
@@ -308,9 +297,8 @@ function App() {
         <spotLight position={[2,8,5]} angle={0.3} color="white" intensity={1}/>
         <spotLight position={[-6,8,5]} angle={0.3} color="white"/>
         <Physics>
-        <Asset/>
-        <Asset2/>
-        <Asset3/>
+         <Asset/>
+        <Asset2/> 
         <Box/>
         <Box1/>
         <Box2/>
